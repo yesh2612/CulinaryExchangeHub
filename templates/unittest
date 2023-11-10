@@ -1,0 +1,31 @@
+import unittest
+from flask import Flask, render_template
+from flask_util import app  
+
+
+def mock_render_template(template_name):
+    if template_name == 'registration-page.html':
+        return 'HTML for registration page'
+    return 'Unknown template'
+
+class FlaskUtilTestCase(unittest.TestCase):
+
+    def setUp(self):
+        
+        self.app = app.test_client()
+        
+        self.original_render_template = render_template
+        app.jinja_env.globals['render_template'] = mock_render_template
+
+    def tearDown(self):
+        
+        app.jinja_env.globals['render_template'] = self.original_render_template
+
+    def test_index_route(self):
+        
+        response = self.app.get('/')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('HTML for registration page', response.get_data(as_text=True))
+
+if __name__ == '__main__':
+    unittest.main()
