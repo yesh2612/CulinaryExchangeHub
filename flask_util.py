@@ -39,6 +39,10 @@ ingreditents_values = []
 def index():
     return render_template("index.html")
 
+@app.route("/search-page")
+def search_dish():
+    return render_template("searchstyle.html")
+
 @app.route('/recipe-page')
 def recipe_page():
     return redirect('/recipes-table')
