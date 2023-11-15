@@ -53,7 +53,7 @@ def recipes_table():
                         port = 5432)
     recipes_cur = recipes_conn.cursor()
 
-    values =["Vegetable Briyani", 6]
+    values =["Egg Curry", 9]
     
     recipes_op.insert_into_recipe_table(recipes_cur, values)
     recipes_conn.commit()
@@ -86,7 +86,7 @@ def ingredient_table():
                         port = 5432)
     ingreditents_cur = ingreditents_conn.cursor()
 
-    values =["Rice, 2 Green Cardamoms 1 Black Cardamom 2 Cloves 1 small piece of Cinnamon1 small Bay Leaf Salt to taste", 3, "First soak the rice in water. Then prepare the gravy.When gravy is half cooked, start to cook the rice.Assemble rice and gravy and cook again."]
+    values =["egg, masala, onions", 12, "Boil the egg. Add the flavours, add onions"]
 
     ingreditents_op.insert_into_ingrediets_table(ingreditents_cur, values)
     ingreditents_conn.commit()
