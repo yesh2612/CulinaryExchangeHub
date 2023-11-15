@@ -16,6 +16,14 @@ class DB_Operations:
         insert_query = """INSERT INTO users(User_Name, User_Password) VALUES (%s, %s);"""
         insert_records = (values[0][0], values[0][1])
         self.cur.execute(insert_query, insert_records)
+        
+    def check_user_exist(self, cur, username, password):
+        self.cur = cur
+        self.cur.execute("SELECT COUNT(*) FROM users WHERE User_Name = %s AND User_Password = %s", (username, password))
+        count = self.cur.fetchone()[0]
+        print("count{}".format(count))
+        return count
+
     def display_users_table(self, cur):
         self.cur = cur
         self.cur.execute("SELECT * FROM users")

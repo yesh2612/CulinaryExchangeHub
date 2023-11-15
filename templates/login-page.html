@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="static/style.css" />
+    <nav>
+      <ul>
+        <li><a href="/login-page">User Login</a></li>
+        <li><a href="/registration-page">User Registration</a></li>
+        <li><a href="/display-page">Display Page</a></li>
+        <li><a href="/">Home Page</a></li>
+      </ul>
+    </nav>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/login-page.css" />
+    <title>User Login</title>
+  </head>
+  <body>
+    <main id="main-holder">
+      <h2 id="login-header">User Login</h2>
+      <div id="login-error-msg-holder">
+        <p id="login-error-msg"></p>
+      </div>
+      <form id="login-form" name="myform">
+        <input
+          type="text"
+          name="username"
+          id="username"
+          class="login-form-field"
+          placeholder="Username"
+        />
+        <input
+          type="password"
+          name="password"
+          id="password"
+          class="login-form-field"
+          placeholder="Password"
+        />
+        <input
+          class="login-form-submit"
+          type="button"
+          value="Login"
+          onclick="url()"
+        />
+      </form>
+    </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/login-page.js"></script>
+  </body>
+</html>
