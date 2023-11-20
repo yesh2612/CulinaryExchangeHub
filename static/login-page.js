@@ -87,6 +87,16 @@ function url() {
         if (response.error) {
           display_user_not_found_msg(xmlhttp);
         } else {
+          var lbl = document.querySelector(".profile a");
+          var username = response;
+          console.log("vvv", lbl.textContent, user_name);
+          lbl.textContent = username.message;
+          console.log("vvv", lbl.textContent, user_name.message);
+          var log_txt = document.querySelector(".profile .dropdown a");
+          log_txt.style =
+            "display : inline-block; pointer-events: auto; opactiy:1";
+          log_txt.textContent = "Logout";
+
           display_login_success(xmlhttp);
         }
       } else {

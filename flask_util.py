@@ -1,4 +1,6 @@
-from flask import Flask, json, jsonify, redirect, render_template, request
+from flask import Flask, json, jsonify, redirect, render_template, request, redirect, session, url_for
+from flask_session import Session
+
 import pandas as pd
 import psycopg2
 
@@ -7,7 +9,10 @@ import users_db
 import ingredients_code
 
 app = Flask(__name__,template_folder="templates")
+app.config['SECRET_KEY'] = 'secret'
 
+app.config['SESSION_TYPE'] = 'filesystem'
+Session(app)
 users_conn = psycopg2.connect(database = "users",
                         user = "postgres", 
                         host= 'localhost',
@@ -38,6 +43,27 @@ ingreditents_values = []
 @app.route("/")
 def index():
     return render_template("index.html")
+
+@app.route('/load-content', methods=['POST'])
+def load_content():
+    page_name = request.form.get('page_name')
+    return render_template(f'{page_name}.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return render_template('index.html')
+
+@app.route("/user_logging_process")
+def userlogging_process():
+    if 'username' in session:
+        return redirect("/logout")
+    else:
+        return render_template("index.html")
+
+@app.route("/main-page")
+def home_page():
+    return render_template("home-page.html")
 
 @app.route("/search-page")
 def search_dish():
@@ -70,7 +96,7 @@ def recipes_table():
                         port = 5432)
     recipes_cur = recipes_conn.cursor()
 
-    values =["Egg Curry", 12]
+    values =["Pizza", 3]
     
     recipes_op.insert_into_recipe_table(recipes_cur, values)
     recipes_conn.commit()
@@ -103,7 +129,7 @@ def ingredient_table():
                         port = 5432)
     ingreditents_cur = ingreditents_conn.cursor()
 
-    values =["egg, masala, onions", 13, "Boil the egg. Add the flavours, add onions"]
+    values =["Olives, Onions, pepper", 3, "Bake the pizza, add olives and onions"]
 
     ingreditents_op.insert_into_ingrediets_table(ingreditents_cur, values)
     ingreditents_conn.commit()
@@ -189,7 +215,10 @@ def registration():
         users_cur.close()
         users_conn.close()
         users_values = []
-        return jsonify({'message': 'Login successful'})
+        session['username'] = user_name
+
+        response = {'message': session['username']}
+        return jsonify(response)
     except Exception as e:
         print(e)
         return jsonify({'error': str(e)}), 500
@@ -225,7 +254,9 @@ def user_login():
             users_cur.close()
             users_conn.close()
             users_values = []
-            response = {'message': 'Login successful'}
+            session['username'] = user_name
+
+            response = {'message': session['username']}
             return jsonify(response)
         else:
             response = {'error': 'Login failed. Invalid username or password.'}
