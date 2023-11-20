@@ -241,25 +241,28 @@ def user_login():
         users_values = []
 
         data = request.get_json()
-        
-        user_name = data.get('username')
+        email_id = data.get("email_id")
+
         user_password = data.get('password')
 
-        print("username:{}\npassword:{}".format(user_name, user_password))
-        value = (user_name, user_password)
+        print("email_id, \npassword:{}".format(email_id, user_password))
+        value = (email_id, user_password)
         users_values.append(value)
-        result = users_op.check_user_exist(users_cur, user_name, user_password)
+        result = users_op.check_user_exist(users_cur, email_id, user_password)
         if result:
+            user_name = users_op.get_user_name(users_cur, email_id, user_password)
             users_conn.commit()
             users_cur.close()
             users_conn.close()
             users_values = []
+            print("naaaaa", user_name)
+            if(user_name == None):
+                user_name = email_id
             session['username'] = user_name
-
             response = {'message': session['username']}
             return jsonify(response)
         else:
-            response = {'error': 'Login failed. Invalid username or password.'}
+            response = {'error': 'Login failed. Invalid email_ID or password.'}
 
         return jsonify(response)
     except Exception as e:
