@@ -96,7 +96,7 @@ def recipes_table():
                         port = 5432)
     recipes_cur = recipes_conn.cursor()
 
-    values =["Pizza", 3]
+    values =["Egg Curry", 9]
     
     recipes_op.insert_into_recipe_table(recipes_cur, values)
     recipes_conn.commit()
@@ -129,7 +129,7 @@ def ingredient_table():
                         port = 5432)
     ingreditents_cur = ingreditents_conn.cursor()
 
-    values =["Olives, Onions, pepper", 3, "Bake the pizza, add olives and onions"]
+    values =["egg, masala, onions", 12, "Boil the egg. Add the flavours, add onions"]
 
     ingreditents_op.insert_into_ingrediets_table(ingreditents_cur, values)
     ingreditents_conn.commit()
