@@ -2,6 +2,10 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  background-color: #3a3a3a;
 }
 
 header {
@@ -9,6 +13,8 @@ header {
   color: white;
   padding: 10px;
   text-align: center;
+  display: flex;
+  justify-content: space-between;
 }
 
 nav ul {
@@ -28,19 +34,6 @@ nav a {
   font-weight: bold;
 }
 
-a:hover {
-  background-color: violet;
-}
-
-.content {
-  text-align: center;
-  align-items: center;
-  justify-items: center;
-  padding: 20px;
-  margin: 200px;
-  border: 1px;
-}
-
-body {
-  background-color: rgb(90, 221, 230);
+nav a:hover {
+  background-color: gray;
 }

@@ -1,0 +1,62 @@
+.profile-nav {
+  margin: 0;
+  padding: 0;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.profile-nav .label {
+  color: #333;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.profile-nav .profile {
+  position: relative;
+  background-color: #333;
+  color: gray;
+  padding: 5px 10px;
+  border-radius: 5px;
+  list-style-type: none;
+  text-decoration: none;
+}
+
+.profile-nav .profile .dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #333;
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  list-style-type: none;
+}
+
+.profile-nav .profile:hover .dropdown {
+  display: block;
+}
+
+.profile-nav .profile a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  opacity: 10;
+  pointer-events: none;
+}
+
+.profile-nav .profile .dropdown a {
+  display: none;
+  padding: 8px 10px;
+  color: white;
+  text-decoration: none;
+}
+
+.profile-nav .profile .dropdown a:hover {
+  background-color: darkgray;
+}
+
+header .profile-nav .profile:hover {
+  background-color: #333;
+}
