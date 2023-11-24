@@ -14,6 +14,15 @@
       </div>
       <form id="login-form" name="myform">
         <input
+          type="email"
+          name="email"
+          id="email"
+          class="login-form-field"
+          placeholder="Enter your email"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+          required
+        />
+        <input
           type="text"
           name="username"
           id="username"

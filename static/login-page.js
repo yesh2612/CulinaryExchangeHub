@@ -7,7 +7,7 @@ function display_user_not_found_msg(xmlhttp) {
   document.getElementById("main-holder").style.backgroundColor = "white";
   document.getElementById("login-error-msg").style.color = "red";
   document.getElementById("login-error-msg").textContent =
-    "Login Failed: Either Password Mismatch or User not found";
+    "Login Failed: Password Mismatch or User not found";
   document.getElementById("login-error-msg").style.color = "red";
   console.log("error", JSON.parse(xmlhttp.responseText));
 }
@@ -24,23 +24,19 @@ function display_login_success(xmlhttp) {
 function display_response_failure_msg(xmlhttp) {
   console.error("Request failed with status", xmlhttp.status);
   document.getElementById("login-error-msg").style.color = "red";
-  // val = JSON.parse(xmlhttp.responseText);
-  // parts = val.error.split(":");
-  // console.log("wwwwww", parts[1].trim());
-  // console.log("eeeeeeeee", val.message);
-  // document.getElementById("login-error-msg").textContent =
-  //   "Login Failed:" + " " + parts[1].trim();
+
   document.getElementById("login-error-msg").style.color = "black";
   console.log("error", JSON.parse(xmlhttp.responseText));
 }
 
 function validate_user_email(user_email) {
-  email_value = user_email.value;
+  var email_value = user_email.value;
   var emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
   console.log(emailRegex.test(email_value));
   if (emailRegex.test(email_value)) {
     document.getElementById("email").style.borderColor = "black";
-    validation_flag = true;
+    // validation_flag = true;
+    return 1;
   } else {
     document.getElementById("email").style.borderColor = "red";
     document.getElementById("email").className = "error-field";
@@ -48,7 +44,8 @@ function validate_user_email(user_email) {
     document.getElementById("login-error-msg").style.color = "red";
     document.getElementById("login-error-msg").textContent =
       "Incorrect Email ID";
-    validation_flag = false;
+    // validation_flag = false;
+    return 0;
   }
 }
 
@@ -56,12 +53,12 @@ function validate_user_password(user_password) {
   if (user_password === "") {
     document.getElementById("password").style.borderColor = "red";
     document.getElementById("password").className = "error-field";
-    validation_flag = false;
+    // validation_flag = false;
     return 0;
   } else if (user_password != "") {
     document.getElementById("main-holder").style.backgroundColor = "white";
     document.getElementById("password").style.borderColor = "black";
-    validation_flag = true;
+    // validation_flag = true;
     return 1;
   }
 }
@@ -71,9 +68,14 @@ function url() {
   var email_input = document.getElementById("email");
   var email_id_value = document.getElementById("email").value;
 
-  validate_user_password(user_password);
-  validate_user_email(email_input);
+  var password_flag = validate_user_password(user_password);
+  var email_flag = validate_user_email(email_input);
 
+  if (password_flag && email_flag) {
+    validation_flag = true;
+  } else {
+    validation_flag = false;
+  }
   if (validation_flag == false) {
     return false;
   }
@@ -101,12 +103,21 @@ function url() {
         var username = response;
         console.log("vvv", lbl.textContent, username);
         lbl.textContent = username.message;
+        sessionStorage.setItem("user", lbl.textContent);
         console.log("vvv", lbl.textContent, username.message);
-        var log_txt = document.querySelector(".profile .dropdown a");
+        var log_txt = document.querySelector(
+          '.profile .dropdown a[href="/user_logging_process"]'
+        );
         log_txt.style =
           "display : inline-block; pointer-events: auto; opactiy:1";
         log_txt.textContent = "Logout";
 
+        var my_dishes_txt = document.querySelector(
+          '.profile .dropdown a[href="#"]'
+        );
+        my_dishes_txt.style =
+          "display : inline-block; pointer-events: auto; opactiy:1";
+        my_dishes_txt.textContent = "My Dishes";
         display_login_success(xmlhttp);
       }
     } else {

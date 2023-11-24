@@ -39,3 +39,18 @@ class DB_Operations:
             users ON recipes.user_id = users.user_id"""
         self.cur.execute(query)
         return self.cur.fetchall()
+    
+    def insert_updated_value_into_db(self, cur, values):
+        self.cur = cur
+        self.cur.execute("""
+            UPDATE recipes
+            SET recipe_name = %s
+            WHERE recipe_id = %s
+        """, (values[1], values[0]))
+        self.cur.execute("""
+            UPDATE ingredients
+            SET description = %s,
+            steps = %s
+            WHERE recipe_id = %s
+        """, (values[2], values[3], values[0]))
+        
