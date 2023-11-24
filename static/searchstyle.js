@@ -35,13 +35,13 @@ function searchValue(data) {
     resultsContainer.innerHTML = "<p>No results found</p>";
   } else if (searchTerm.length != 0) {
     console.log("not null");
-    const recipeDiv = document.createElement("div");
-    recipeDiv.classList.add("recipe");
 
     for (let i = 0; i < data_array.length; i++) {
       const item = data_array[i];
 
       if (item[0].toLowerCase() === searchTerm.toLowerCase()) {
+        const recipeDiv = document.createElement("div");
+        recipeDiv.classList.add("recipe");
         check_dish_exist_flag = true;
         var dishLabel = createLabel("Dish Name: ");
         var dishElement = createElementWithStyle(
@@ -88,7 +88,7 @@ function searchValue(data) {
         recipeDiv.appendChild(stepsElement);
         resultsContainer.appendChild(recipeDiv);
         add_style(recipeDiv);
-        break;
+        // break;
       }
     }
     if (check_dish_exist_flag === false) {
