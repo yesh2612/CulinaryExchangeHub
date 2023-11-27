@@ -36,6 +36,52 @@
           value="Login"
           onclick="url()"
         />
+        <p class="forgot-password-link" onclick="toggleForm('forgot-password')">
+          Forgot Password?
+        </p>
+      </form>
+      <form
+        id="forgot-password-form"
+        name="forgotPasswordForm"
+        style="display: none"
+        class="form-container"
+      >
+        <input
+          type="email"
+          name="forgot-email"
+          id="forgot-email"
+          class="login-form-field"
+          placeholder="Enter your email"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+          required
+        />
+
+        <input
+          type="password"
+          name="new-password"
+          id="new-password"
+          class="login-form-field"
+          placeholder="New Password"
+        />
+
+        <input
+          type="password"
+          name="confirm-password"
+          id="confirm-password"
+          class="login-form-field"
+          placeholder="Confirm New Password"
+        />
+
+        <input
+          class="login-form-submit"
+          type="button"
+          value="Reset Password"
+          onclick="resetPassword()"
+        />
+
+        <p class="forgot-password-back" onclick="toggleForm('login')">
+          Back to Login
+        </p>
       </form>
     </main>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
