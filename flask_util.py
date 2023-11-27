@@ -68,7 +68,7 @@ def home_page():
 # @app.route("/my_dishes")
 # def my_dishes():
 #     return render_template("my_dishes.html")
-
+ 
 def extract_columns_for_displaying_my_dishes(rows):
     print("aaaaavvvv", rows)
     extracted_result = [(row[2], row[3], row[4], row[1], row[5]) for row in rows]
@@ -348,6 +348,44 @@ def user_login():
             response = {'error': 'Login failed. Invalid email_ID or password.'}
 
         return jsonify(response)
+    except Exception as e:
+        print("exception", e)
+        return jsonify({'error': str(e)}), 500
+@app.route("/password_reset", methods = ['POST'])
+def reset_password():
+    global users_op, users_cur, users_conn, users_values
+    try:
+        
+        users_conn = psycopg2.connect(database = "users",
+                            user = "postgres", 
+                            host= 'localhost',
+                            password = "1234",
+                            port = 5432)
+        users_cur = users_conn.cursor()
+        users_op = users_db.DB_Operations(users_cur)
+        users_values = []
+
+        data = request.get_json()
+        email_id = data.get("email_id")
+
+        new_password = data.get('new_password')
+
+        print("email_id:{}password:{}".format(email_id, new_password))
+        value = (email_id, new_password)
+        users_values.append(value)
+        result = users_op.check_user_email_exist(users_cur, email_id)
+        if result:
+            print("enterrinnnnnnnngggg")
+            users_op.set_new_password(users_cur, email_id, new_password)
+            print("exitttttttttting")
+            users_conn.commit()
+            users_cur.close()
+            users_conn.close()
+            response = {'success': "New Password set successfully"}
+            return jsonify(response)
+        else:
+            response = {'error': 'Login failed. Invalid email_ID or password.'}
+            
     except Exception as e:
         print("exception", e)
         return jsonify({'error': str(e)}), 500

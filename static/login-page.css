@@ -10,6 +10,13 @@
   padding: 20px;
 }
 
+.form-container {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
 #login-form {
   display: grid;
   justify-items: center;
@@ -31,16 +38,22 @@
   margin-bottom: 50px;
   outline: none;
   padding: 0px 0px 5px 5px;
+  display: block;
 }
 
-.login-form-field {
+.login-form-field,
+.new-password-field,
+.confirm-password-field,
+.forgot-password-field {
   border: none;
   border-bottom: 1px solid #3a3a3a;
   margin-bottom: 50px;
   outline: none;
+  display: block;
 }
 
-.login-form-submit {
+.login-form-submit,
+.reset-password-submit {
   width: 100%;
   padding: 10px;
   border: none;
@@ -50,4 +63,15 @@
   background-color: #3a3a3a;
   cursor: pointer;
   outline: none;
+  display: block;
+}
+
+.forgot-password-back,
+.forgot-password-link {
+  text-align: center;
+  cursor: pointer;
+  color: #3a3a3a;
+  font-weight: bold;
+  text-decoration: underline;
+  margin-top: 20px;
 }
