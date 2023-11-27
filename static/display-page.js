@@ -58,7 +58,10 @@ function displayData(data) {
         "labelElement",
         item[3]
       );
-
+      itemContainer.classList.add("slide");
+      itemContainer.addEventListener("animationend", function () {
+        document.body.style.overflow = "auto";
+      });
       itemContainer.appendChild(dishLabel);
       itemContainer.appendChild(dishElement);
       itemContainer.appendChild(document.createElement("br"));
