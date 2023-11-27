@@ -6,6 +6,8 @@ body {
   justify-items: center;
   align-items: flex-start;
   background-color: #3a3a3a;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .center-container {
@@ -18,8 +20,21 @@ body {
 .mainContainer {
   display: block;
   height: 70%;
+  position: relative;
 }
 
+@keyframes slideAnimation {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.itemContainer.slide {
+  animation: slideAnimation 2s ease;
+}
 .itemContainer {
   display: block;
   border: 1px solid #ccc;
@@ -42,7 +57,6 @@ label {
   display: inline-block;
   width: 120px;
   margin-bottom: 5px;
-
   font-weight: bold;
 }
 
