@@ -104,10 +104,8 @@ def insert_updated_data_into_db():
         dish_name = data.get('dish_name')
         ingredients = data.get("ingredients")
         steps = data.get("steps")
-        # user_password = data.get('password')
 
         print("reid:{}\n:disname{}\ning:{}\nsteps{}".format(recipe_id, dish_name, ingredients, steps))
-        # value = (recipe_id, dish_name, ingredients, steps)
         ingreditents_values.append(recipe_id)
         ingreditents_values.append(dish_name)
         ingreditents_values.append(ingredients)
@@ -115,24 +113,9 @@ def insert_updated_data_into_db():
         ingreditents_op.insert_updated_value_into_db(ingreditents_cur, ingreditents_values)
         ingreditents_conn.commit()
         ingreditents_values = []
-        # users_cur.close()
-        # users_conn.close()
-        # users_values = []
-        # user_name = users_op.get_user_name(users_cur, email_id, user_password)
-        # users_conn.commit()
-        # users_cur.close()
-        # users_conn.close()
-        # users_values = []
-        # print("naaaaa", user_name)
-        # if(user_name == None or user_name == ""):
-        #     user_name = email_id
-        # session['username'] = user_name
-        # response = {'message': session['username']}
-        return jsonify("'message': session['username']")
-        # session['username'] = user_name
 
-        # response = {'message': session['username']}
-        # return jsonify(response)
+        return jsonify("'message': session['username']")
+
     except Exception as e:
         print(e)
         return jsonify({'error': str(e)}), 500
@@ -325,10 +308,8 @@ def user_login():
 
         data = request.get_json()
         email_id = data.get("email_id")
-
         user_password = data.get('password')
 
-        print("email_id:{}password:{}".format(email_id, user_password))
         value = (email_id, user_password)
         users_values.append(value)
         result = users_op.check_user_exist(users_cur, email_id, user_password)
@@ -338,7 +319,6 @@ def user_login():
             users_cur.close()
             users_conn.close()
             users_values = []
-            print("naaaaa", user_name)
             if(user_name == None or user_name == ""):
                 user_name = email_id
             session['username'] = user_name
