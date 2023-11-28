@@ -61,7 +61,7 @@ function display_response_failure_msg(xmlhttp) {
 function validate_user_email(user_email) {
   var email_value = user_email.value;
   var emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
-  console.log(emailRegex.test(email_value));
+  console.log(emailRegex.test(email_value), email_value, user_email.value);
   if (emailRegex.test(email_value)) {
     document.getElementById("email").style.borderColor = "black";
     return 1;
@@ -188,7 +188,6 @@ function resetPassword() {
 }
 
 function url() {
-  clear_form();
   var user_password = document.getElementById("password");
   var email_input = document.getElementById("email");
   var email_id_value = document.getElementById("email").value;

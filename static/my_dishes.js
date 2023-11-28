@@ -60,6 +60,7 @@ function display_dishes(data) {
         recipeDiv.classList.add("recipe");
         check_dish_exist_flag = true;
         var recipeid = createLabel("Dish ID: ");
+        recipeid.className = "labelheading";
 
         var recipeidElement = createElementWithStyle(
           "span",
@@ -158,15 +159,56 @@ function display_dishes(data) {
           updateRecipe(recipeDiv);
         });
         updateButton.classList.add("updateButton");
-
         recipeDiv.appendChild(updateButton);
+        updateButton.style.cursor = "default";
         updateButton.style.opacity = 0;
+
+        var cancelButton = createButton("Cancel", function () {
+          cancel_function(recipeDiv);
+        });
+
+        cancelButton.classList.add("cancelButton");
+        recipeDiv.appendChild(cancelButton);
+        cancelButton.style.cursor = "default";
+        cancelButton.style.opacity = 0;
+
+        // updateButton.style.padding = "20px";
+        // cancelButton.style.padding = "20px";
       }
     }
     if (check_dish_exist_flag === false) {
       resultsContainer.innerHTML = "<p>No results found</p>";
     }
   }
+}
+
+function cancel_function(element) {
+  var labels = element.querySelectorAll(".labelElement");
+  var textElements = element.querySelectorAll(".textElement");
+  var inputElements = element.querySelectorAll(".inputElement");
+  var editButton = element.querySelector(".editButton");
+  var updateButton = element.querySelector(".updateButton");
+  var cancelButton = element.querySelector(".cancelButton");
+
+  labels.forEach((label) => {
+    label.style.opacity = 1;
+  });
+
+  textElements.forEach((textElement) => {
+    textElement.style.opacity = 0;
+  });
+
+  inputElements.forEach((inputElement) => {
+    inputElement.style.opacity = 0;
+  });
+
+  editButton.style.opacity = 1;
+  updateButton.style.opacity = 0;
+  cancelButton.style.opacity = 0;
+
+  editButton.style.cursor = "pointer";
+  updateButton.style.cursor = "default";
+  cancelButton.style.cursor = "default";
 }
 
 function createLabel(text) {
@@ -191,7 +233,7 @@ function add_style(element) {
   element.style.margin = "20px";
   element.style.height = "auto";
   element.style.borderRadius = "8px";
-  element.style.backgroundColor = "rgb(67, 161, 233)";
+  // element.style.backgroundColor = "rgb(67, 161, 233)";
   element.style.boxShadow = "0 0 10px rgb(59, 106, 166)";
 }
 
@@ -217,6 +259,7 @@ function toggleEditFields(element) {
   var inputElements = element.querySelectorAll(".inputElement");
   var editButton = element.querySelector(".editButton");
   var updateButton = element.querySelector(".updateButton");
+  var cancelButton = element.querySelector(".cancelButton");
 
   var isEditing = element.getAttribute("data-editing") === "true";
 
@@ -234,7 +277,12 @@ function toggleEditFields(element) {
     inputElement.style.opacity = 1;
   });
   updateButton.style.opacity = 1;
+  cancelButton.style.opacity = 1;
   editButton.style.opacity = 0;
+
+  editButton.style.cursor = "default";
+  updateButton.style.cursor = "pointer";
+  cancelButton.style.cursor = "pointer";
   //xhr.send(JSON.stringify({}));
   if (!isEditing) {
     element.setAttribute("data-editing", "true");
@@ -290,6 +338,7 @@ function updateRecipe(element) {
   var inputElements = element.querySelectorAll(".inputElement");
   var editButton = element.querySelector(".editButton");
   var updateButton = element.querySelector(".updateButton");
+  var cancelButton = element.querySelector(".cancelButton");
 
   labels.forEach((label) => {
     label.style.opacity = 1;
@@ -305,6 +354,11 @@ function updateRecipe(element) {
 
   editButton.style.opacity = 1;
   updateButton.style.opacity = 0;
+  cancelButton.style.opacity = 0;
+
+  editButton.style.cursor = "pointer";
+  updateButton.style.cursor = "default";
+  cancelButton.style.cursor = "default";
 
   // Access the updated values from the input fields
   var recipe_id = element.querySelector(".recipeID").textContent;
