@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/create-recipe.css" />
+
+    <title>Recipe App</title>
+  </head>
+  <body>
+    <nav class="create-recipe">
+      <h1>Recipe App Page</h1>
+    </nav>
+    <div class="container">
+      <div class="left-column">
+        <h3>Add Recipe</h3>
+
+        <form class="create-recipe-form">
+          <div class="label-group">
+            <label for="recipe-name">Recipe Name:</label>
+            <input type="text" id="recipe-name" required />
+            <br />
+          </div>
+          <div class="label-group">
+            <label for="recipe-ingredients">Ingredients:</label>
+            <textarea id="recipe-ingredients" rows="5" required></textarea>
+            <br />
+          </div>
+          <div class="label-group">
+            <label for="recipe-method">Steps:</label>
+            <textarea id="recipe-method" rows="5" required></textarea>
+            <br />
+          </div>
+          <input
+            class="recipe-create-button"
+            type="button"
+            value="Add Recipe"
+            onclick="recipe_create()"
+          />
+        </form>
+      </div>
+      <div class="right-column"></div>
+    </div>
+    <script type="text/javascript" src="/static/create-recipe.js"></script>
+  </body>
+</html>
