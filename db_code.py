@@ -14,10 +14,11 @@ class DB_Operations:
     def insert_into_recipe_table(self, cur, values):
         self.cur = cur
 
-        insert_query = """INSERT INTO recipes(recipe_Name, user_id) VALUES (%s, %s);"""
+        insert_query = """INSERT INTO recipes(recipe_Name, user_id) VALUES (%s, %s) RETURNING recipe_id;"""
         insert_records = (values[0], values[1])
         self.cur.execute(insert_query, insert_records)
-    
+        return self.cur.fetchone()[0]
+
     def get_no_of_rows(self, cur, table_name):
         self.cur = cur
         self.cur.execute(f"SELECT COUNT(*) FROM {table_name}")

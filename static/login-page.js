@@ -228,6 +228,7 @@ function url() {
         console.log("vvv", lbl.textContent, username);
         lbl.textContent = username.message;
         sessionStorage.setItem("user", lbl.textContent);
+        sessionStorage.setItem("user_email", username.user_email_id);
         console.log("vvv", lbl.textContent, username.message);
         var log_txt = document.querySelector(
           '.profile .dropdown a[href="/user_logging_process"]'
