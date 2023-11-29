@@ -51,3 +51,8 @@ class DB_Operations:
         count = self.cur.fetchone()[0]
         print("count{}".format(count))
         return count
+
+    def get_user_id_by_email(self, cur, email_id):
+        self.cur = cur
+        self.cur.execute("SELECT user_id FROM users WHERE email_id = %s", (email_id,))
+        return self.cur.fetchone()

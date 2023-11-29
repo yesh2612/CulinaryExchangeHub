@@ -331,6 +331,44 @@ def user_login():
     except Exception as e:
         print("exception", e)
         return jsonify({'error': str(e)}), 500
+    
+@app.route('/create-recipes', methods=['POST'])
+def create_recipe():
+    global recipes_conn, recipes_cur, recipes_op, users_cur, users_op, ingreditents_conn, ingreditents_cur, ingreditents_op
+    try :
+        recipes_conn = psycopg2.connect(database = "users", 
+                            user = "postgres", 
+                            host= 'localhost',
+                            password = "1234",
+                            port = 5432)
+        recipes_cur = recipes_conn.cursor()
+        values = []
+        data = request.get_json()
+        email_id = data.get("email_id")
+        recipe_name = data.get('recipe_name')
+        recipe_ingredients = data.get('recipe_ingredients')
+        recipe_steps = data.get('recipe_steps')
+        user_id = users_op.get_user_id_by_email(users_cur, email_id)
+        user_id = user_id[0]
+        if (user_id):
+            values.append(recipe_name)
+            values.append(user_id)
+            print("usssssserid", user_id)
+            values = [recipe_name, user_id]
+            recipe_id = recipes_op.insert_into_recipe_table(recipes_cur, values)
+            print("rrrr", recipe_id)
+            recipes_conn.commit()
+            values = [recipe_ingredients, recipe_id, recipe_steps]
+            ingreditents_op.insert_into_ingrediets_table(ingreditents_cur, values)
+            ingreditents_conn.commit()
+            return jsonify({"status": "success", "message": "Data inserted successfully."})
+
+        else:
+            return jsonify({"status": "error", "message": "User with provided email not found."})
+
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)})
+
 @app.route("/password_reset", methods = ['POST'])
 def reset_password():
     global users_op, users_cur, users_conn, users_values
