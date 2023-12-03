@@ -29,7 +29,7 @@ class DB_Operations:
             ingredients.description,
             ingredients.recipe_id,
             recipes.recipe_name,
-            users.user_name,
+            users.email_id,
             ingredients.steps
         FROM 
             ingredients

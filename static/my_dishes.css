@@ -1,12 +1,9 @@
 .recipe {
   display: flex;
   flex-direction: column;
-  /* border: 1px solid #ddd; */
-  /* border: 1px solid #80b3ff; */
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
-  /* background-color: #e6f7ff; */
   background-color: white;
 }
 

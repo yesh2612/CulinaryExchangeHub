@@ -1,13 +1,38 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Pacifico", cursive;
   margin: 0;
   padding: 0;
   background-color: rgb(90, 221, 230);
+  background: url("https://images.unsplash.com/photo-1626509653291-18d9a934b9db?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
+    center center fixed;
+  background-size: cover;
+  overflow: hidden;
 }
 
 .content {
   text-align: center;
   padding: 20px;
-  margin: 200px;
-  border: 1px;
+  animation: slideAnimation 2s ease, glowAnimation 2s infinite alternate;
+  font-size: 36px;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes slideAnimation {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes glowAnimation {
+  0%,
+  100% {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+  }
 }
