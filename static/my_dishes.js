@@ -28,7 +28,7 @@ function display_dishes(data) {
   data_array = data.data;
 
   console.log("dataaaaaray", data_array);
-  var searchTerm_element = sessionStorage.getItem("user");
+  var searchTerm_element = sessionStorage.getItem("user_email");
   if (searchTerm_element) {
     var textContentValue = searchTerm_element;
     console.log("aaaaaaaaa", searchTerm_element.toLowerCase());

@@ -78,7 +78,6 @@ def extract_columns_for_displaying_my_dishes(rows):
 def display_my_dishes():
     global ingreditents_conn, ingreditents_cur, ingreditents_op
     rows = ingreditents_op.get_values(ingreditents_cur)
-    
     merge_result = merge_records_based_on_recipe_id(rows)
     
     extract_values = extract_columns_for_displaying_my_dishes(merge_result)
@@ -127,7 +126,7 @@ def search_dish():
 def search_recipes():
     global ingreditents_conn, ingreditents_cur, ingreditents_op
     rows = ingreditents_op.get_values(ingreditents_cur)
-    
+    replace_email_with_name(rows)
     merge_result = merge_records_based_on_recipe_id(rows)
     
     extract_values = extract_columns(merge_result)
@@ -136,70 +135,6 @@ def search_recipes():
     
     return jsonify(data = extract_values)
 
-@app.route('/recipe-page')
-def recipe_page():
-    return redirect('/recipes-table')
-
-@app.route('/recipes-table')
-def recipes_table():
-    global recipes_conn, recipes_cur, recipes_op
-    recipes_conn = psycopg2.connect(database = "users", 
-                        user = "postgres", 
-                        host= 'localhost',
-                        password = "1234",
-                        port = 5432)
-    recipes_cur = recipes_conn.cursor()
-
-    values =["Egg Curry", 9]
-    
-    recipes_op.insert_into_recipe_table(recipes_cur, values)
-    recipes_conn.commit()
-    data = recipes_op.display_recipe_table(recipes_cur)
-    print("daata", data)
-    dataFrame = pd.DataFrame()
-    for value in data:
-        dataFrame2 = pd.DataFrame(list(value)).T
-        dataFrame = pd.concat([dataFrame,dataFrame2])
-    print("ddddd", dataFrame)
-    dataFrame.to_html("templates/recipes_data.html")
-    recipes_conn.commit()
-    recipes_cur.close()
-    users_cur.close()
-    recipes_conn.close()
-
-    return render_template('recipes_data.html')
-
-@app.route('/ingredients-page')
-def ingredients_page():
-    return redirect("/ingredient-table")
-
-@app.route('/ingredient-table')
-def ingredient_table():
-    global ingreditents_conn, ingreditents_cur, ingreditents_op
-    ingreditents_conn = psycopg2.connect(database = "users", 
-                        user = "postgres", 
-                        host= 'localhost',
-                        password = "1234",
-                        port = 5432)
-    ingreditents_cur = ingreditents_conn.cursor()
-
-    values =["egg, masala, onions", 12, "Boil the egg. Add the flavours, add onions"]
-
-    ingreditents_op.insert_into_ingrediets_table(ingreditents_cur, values)
-    ingreditents_conn.commit()
-    data = ingreditents_op.display_ingredient_table(ingreditents_cur)
-    print("daata", data)
-    dataFrame = pd.DataFrame()
-    for value in data:
-        dataFrame2 = pd.DataFrame(list(value)).T
-        dataFrame = pd.concat([dataFrame,dataFrame2])
-    print("ddddd", dataFrame)
-    dataFrame.to_html("templates/ingredients_data.html")
-    ingreditents_conn.commit()
-
-    return render_template('ingredients_data.html')
-
-
 def extract_columns(rows):
     print("aaaaavvvv", rows)
     extracted_result = [(row[3], row[4], row[1], row[5]) for row in rows]
@@ -207,6 +142,7 @@ def extract_columns(rows):
 
 def merge_records_based_on_recipe_id(rows):
     merged_dict = {}
+    print("rowssssss", rows)
     for row in rows:
         ingredients_id, description, recipe_id, recipe_name, user_name, steps = row
 
@@ -218,18 +154,36 @@ def merge_records_based_on_recipe_id(rows):
 
     result_list = [list(value) for value in merged_dict.values()]
 
-    print(result_list)
+    print("aaaaaaa", result_list)
     return result_list
 
 @app.route('/display-page')
 def display_page():
     return render_template("display-page.html")
 
+def replace_email_with_name(rows):
+    global users_op, users_db, users_cur, users_conn
+    for i, data_tuple in enumerate(rows):
+        email = data_tuple[4]
+        name = users_op.get_user_name_by_email(users_cur, email)
+        
+        print("emaaail:{}name:{}".format(email, name))
+        print("ival", i)
+        print("length", len(name))
+        if (name != None and name != ""):
+            author_name = "{} ({})".format(name, email)
+            rows[i] = data_tuple[:4] + (author_name,) + data_tuple[5:]
+            print("going in", rows[i])           
+
+    print("rowwwwwws", rows)
+
 @app.route('/display', methods=['POST'])
 def display_table():
     global ingreditents_conn, ingreditents_cur, ingreditents_op
     rows = ingreditents_op.get_values(ingreditents_cur)
-    
+    print("rowssss before", rows)
+    replace_email_with_name(rows)
+    print("rowssss after", rows)
     merge_result = merge_records_based_on_recipe_id(rows)
     
     extract_values = extract_columns(merge_result)
@@ -271,14 +225,14 @@ def registration():
         users_values = []
         user_name = users_op.get_user_name(users_cur, email_id, user_password)
         users_conn.commit()
-        users_cur.close()
-        users_conn.close()
+        # users_cur.close()
+        # users_conn.close()
         users_values = []
         print("naaaaa", user_name)
         if(user_name == None or user_name == ""):
             user_name = email_id
         session['username'] = user_name
-        response = {'message': session['username']}
+        response = {'message': session['username'], 'user_email_id' : email_id}
         return jsonify(response)
         # session['username'] = user_name
 
@@ -316,13 +270,13 @@ def user_login():
         if result:
             user_name = users_op.get_user_name(users_cur, email_id, user_password)
             users_conn.commit()
-            users_cur.close()
-            users_conn.close()
+            # users_cur.close()
+            # users_conn.close()
             users_values = []
             if(user_name == None or user_name == ""):
                 user_name = email_id
             session['username'] = user_name
-            response = {'message': session['username']}
+            response = {'message': session['username'], 'user_email_id' : email_id}
             return jsonify(response)
         else:
             response = {'error': 'Login failed. Invalid email_ID or password.'}
@@ -397,8 +351,8 @@ def reset_password():
             users_op.set_new_password(users_cur, email_id, new_password)
             print("exitttttttttting")
             users_conn.commit()
-            users_cur.close()
-            users_conn.close()
+            # users_cur.close()
+            # users_conn.close()
             response = {'success': "New Password set successfully"}
             return jsonify(response)
         else:

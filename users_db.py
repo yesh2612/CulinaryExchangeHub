@@ -56,3 +56,14 @@ class DB_Operations:
         self.cur = cur
         self.cur.execute("SELECT user_id FROM users WHERE email_id = %s", (email_id,))
         return self.cur.fetchone()
+    
+    def get_user_name_by_email(self, cur, email_id):
+        self.cur = cur
+        self.cur.execute("SELECT user_name FROM users WHERE email_ID = %s", (email_id,))
+
+        result = self.cur.fetchone()
+
+        if result:
+            return result[0]
+        else:
+            return None

@@ -105,6 +105,20 @@ function validate_user_confirm_password(user_password, confirm_password) {
   }
 }
 
+function check_create_recipe_link() {
+  var create_recipe_link = document.getElementById("createRecipeLink");
+  var check_user_login = sessionStorage.getItem("user_email");
+
+  if (check_user_login === "Null" || check_user_login === "") {
+    create_recipe_link.classList.add("disabled");
+    create_recipe_link.style.pointerEvents = "none";
+  } else {
+    create_recipe_link.classList.remove("disabled");
+    create_recipe_link.style.pointerEvents = "auto";
+    create_recipe_link.style.opacity = 1;
+  }
+}
+
 function url() {
   var user_name = document.getElementById("username");
   var user_password = document.getElementById("password").value;
@@ -152,8 +166,15 @@ function url() {
         var username = response;
         console.log("vvv", lbl.textContent, user_name);
         lbl.textContent = username.message;
+        check_create_recipe_link();
         sessionStorage.setItem("user", lbl.textContent);
+        sessionStorage.setItem("user_email", username.user_email_id);
         console.log("vvv", lbl.textContent, user_name.message);
+        console.log("session storage username", sessionStorage.getItem("user"));
+        console.log(
+          "session storage useremail",
+          sessionStorage.getItem("user_email")
+        );
         var log_txt = document.querySelector(".profile .dropdown a");
         log_txt.style =
           "display : inline-block; pointer-events: auto; opactiy:1";

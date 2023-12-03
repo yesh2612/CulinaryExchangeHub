@@ -187,6 +187,20 @@ function resetPassword() {
   xhr.send(data);
 }
 
+function check_create_recipe_link() {
+  var create_recipe_link = document.getElementById("createRecipeLink");
+  var check_user_login = sessionStorage.getItem("user_email");
+
+  if (check_user_login === "Null" || check_user_login === "") {
+    create_recipe_link.classList.add("disabled");
+    create_recipe_link.style.pointerEvents = "none";
+  } else {
+    create_recipe_link.classList.remove("disabled");
+    create_recipe_link.style.pointerEvents = "auto";
+    create_recipe_link.style.opacity = 1;
+  }
+}
+
 function url() {
   var user_password = document.getElementById("password");
   var email_input = document.getElementById("email");
@@ -227,9 +241,15 @@ function url() {
         var username = response;
         console.log("vvv", lbl.textContent, username);
         lbl.textContent = username.message;
+        check_create_recipe_link();
         sessionStorage.setItem("user", lbl.textContent);
         sessionStorage.setItem("user_email", username.user_email_id);
         console.log("vvv", lbl.textContent, username.message);
+        console.log("session storage username", sessionStorage.getItem("user"));
+        console.log(
+          "session storage useremail",
+          sessionStorage.getItem("user_email")
+        );
         var log_txt = document.querySelector(
           '.profile .dropdown a[href="/user_logging_process"]'
         );

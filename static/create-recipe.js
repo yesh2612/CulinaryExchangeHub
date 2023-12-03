@@ -35,6 +35,14 @@ function recipe_create() {
   }
 
   if (isValid) {
+    console.log(
+      "cccccccsession storage username",
+      sessionStorage.getItem("user_email")
+    );
+    console.log(
+      "ccccccccccccsession storage useremail",
+      sessionStorage.getItem("user")
+    );
     var user_email_id = sessionStorage.getItem("user_email");
 
     var xhr = new XMLHttpRequest();
