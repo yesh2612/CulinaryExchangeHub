@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/my_profile.css" />
+
+    <title>User Details Form</title>
+  </head>
+  <body>
+    <nav class="create-recipe">
+      <h1>User Details Page</h1>
+    </nav>
+    <div class="container" id="container">
+      <div class="left-column">
+        <h3>User Details</h3>
+
+        <form class="create-recipe-form">
+          <div class="label-group">
+            <label for="user-email">User Email:</label>
+            <label for="user-email" id="user-email" />
+            <br />
+          </div>
+          <div class="label-group">
+            <label for="user-password">User Password:</label>
+            <input type="password" id="user-password" readonly />
+            <button type="button" onclick="editField('user-password')">
+              Edit
+            </button>
+            <br />
+          </div>
+          <div class="label-group">
+            <label for="user-display">User Display Name:</label>
+            <input type="text" id="user-display" readonly />
+            <button type="button" onclick="editField('user-display')">
+              Edit
+            </button>
+            <br />
+          </div>
+          <input
+            class="recipe-create-button"
+            type="button"
+            value="Update Details"
+            onclick="updateUserDetails()"
+          />
+        </form>
+      </div>
+      <div class="right-column"></div>
+    </div>
+    <script type="text/javascript" src="/static/my_profile.js"></script>
+  </body>
+</html>

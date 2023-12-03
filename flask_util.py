@@ -232,7 +232,7 @@ def registration():
         if(user_name == None or user_name == ""):
             user_name = email_id
         session['username'] = user_name
-        response = {'message': session['username'], 'user_email_id' : email_id}
+        response = {'message': session['username'], 'user_email_id' : email_id, 'user_password': user_password}
         return jsonify(response)
         # session['username'] = user_name
 
@@ -276,7 +276,7 @@ def user_login():
             if(user_name == None or user_name == ""):
                 user_name = email_id
             session['username'] = user_name
-            response = {'message': session['username'], 'user_email_id' : email_id}
+            response = {'message': session['username'], 'user_email_id' : email_id, 'user_password': user_password}
             return jsonify(response)
         else:
             response = {'error': 'Login failed. Invalid email_ID or password.'}
@@ -362,5 +362,44 @@ def reset_password():
         print("exception", e)
         return jsonify({'error': str(e)}), 500
 
+@app.route("/my_profile", methods = ['POST'])
+def my_profile():
+    global users_op, users_cur, users_conn, users_values
+    try:
+        users_conn = psycopg2.connect(database = "users",
+                            user = "postgres", 
+                            host= 'localhost',
+                            password = "1234",
+                            port = 5432)
+        users_cur = users_conn.cursor()
+        users_op = users_db.DB_Operations(users_cur)
+        users_values = []
+
+        data = request.get_json()
+        email_id = data.get("email")
+        user_password = data.get('password')
+        display_name = data.get("display_name")
+
+        value = (email_id, user_password)
+        users_values.append(value)
+        result = users_op.check_user_email_exist(users_cur, email_id)
+        if result:
+            print("enterrinnnnnnnngggg")
+            users_op.set_new_password(users_cur, email_id, user_password)
+            print("exitttttttttting")
+            users_conn.commit()
+            users_op.set_display_name(users_cur, email_id, display_name)
+            users_conn.commit()
+            # users_cur.close()
+            # users_conn.close()
+            response = {'message': "New Password and display Name set successfully", 'email': email_id, 'username':display_name, 'password':user_password}
+            return jsonify(response)
+        else:
+            response = {'error': 'Invalid UserID or User ID does not exist'}
+
+    except Exception as e:
+        print("exception", e)
+        return jsonify({'error': str(e)}), 500
+    
 if __name__ == '__main__': 
     app.run(host='localhost', port=5500)

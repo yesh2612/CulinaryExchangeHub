@@ -169,6 +169,7 @@ function url() {
         check_create_recipe_link();
         sessionStorage.setItem("user", lbl.textContent);
         sessionStorage.setItem("user_email", username.user_email_id);
+        sessionStorage.setItem("user_password", username.user_password);
         console.log("vvv", lbl.textContent, user_name.message);
         console.log("session storage username", sessionStorage.getItem("user"));
         console.log(

@@ -244,6 +244,7 @@ function url() {
         check_create_recipe_link();
         sessionStorage.setItem("user", lbl.textContent);
         sessionStorage.setItem("user_email", username.user_email_id);
+        sessionStorage.setItem("user_password", username.user_password);
         console.log("vvv", lbl.textContent, username.message);
         console.log("session storage username", sessionStorage.getItem("user"));
         console.log(
@@ -263,6 +264,14 @@ function url() {
         my_dishes_txt.style =
           "display : inline-block; pointer-events: auto; opactiy:1";
         my_dishes_txt.textContent = "My Dishes";
+
+        var my_profile_txt = document.querySelector(
+          ".profile .dropdown #profile"
+        );
+
+        my_profile_txt.style =
+          "display : inline-block; pointer-events: auto; opactiy:1";
+        my_profile_txt.textContent = "My Profile";
         display_login_success(xmlhttp);
       }
     } else {
