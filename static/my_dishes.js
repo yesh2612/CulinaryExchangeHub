@@ -39,7 +39,6 @@ function display_dishes(data) {
   }
   var searchTerm = searchTerm_element.toLowerCase();
 
-  //document.getElementById("recipeTitle").value.toLowerCase();
   const resultsContainer = document.getElementById("searchResults");
   resultsContainer.innerHTML = "";
   if (searchTerm.length === 0) {
@@ -78,17 +77,6 @@ function display_dishes(data) {
         );
         var dishtext = createInputWithStyle("dishElement textElement", item[1]);
 
-        // var authorLabel = createLabel("Author Name: ");
-        // authorLabel.className = "labelheading";
-        // var authorElement = createElementWithStyle(
-        //   "span",
-        //   "authorlbl labelElement",
-        //   item[2]
-        // );
-        // var authornametxt = createInputWithStyle(
-        //   "authorElement textElement",
-        //   item[2]
-        // );
         var ingredientsLabel = createLabel("Ingredients: ");
         ingredientsLabel.className = "labelheading";
         var ingredientsElement = createElementWithStyle(
@@ -123,12 +111,6 @@ function display_dishes(data) {
         recipeDiv.appendChild(dishtext);
         recipeDiv.appendChild(document.createElement("br"));
 
-        // recipeDiv.appendChild(authorLabel);
-        // recipeDiv.appendChild(authorElement);
-        // recipeDiv.appendChild(authornametxt);
-
-        // recipeDiv.appendChild(document.createElement("br"));
-
         recipeDiv.appendChild(ingredientsLabel);
         recipeDiv.appendChild(ingredientsElement);
         recipeDiv.appendChild(ingredietnstxt);
@@ -147,7 +129,6 @@ function display_dishes(data) {
           textElement.style.opacity = 0;
         });
 
-        // break;
         var editButton = createButton("Edit", function () {
           toggleEditFields(recipeDiv);
         });
@@ -171,9 +152,6 @@ function display_dishes(data) {
         recipeDiv.appendChild(cancelButton);
         cancelButton.style.cursor = "default";
         cancelButton.style.opacity = 0;
-
-        // updateButton.style.padding = "20px";
-        // cancelButton.style.padding = "20px";
       }
     }
     if (check_dish_exist_flag === false) {
@@ -237,20 +215,6 @@ function add_style(element) {
   element.style.boxShadow = "0 0 10px rgb(59, 106, 166)";
 }
 
-// function validate_fields(element) {
-//   var dishValue = element.querySelector(".dishElement").value;
-//   console.log("disssss", dishValue);
-//   var authorValue = element.querySelector(".authorElement").value;
-//   var ingredientsValue = element.querySelector(".ingElement").value;
-//   var stepsValue = element.querySelector(".stepsElement").value;
-//   const username_regex = /^(?!\s*$)[\s\S]+$/;
-//   if (username_regex.test(dishValue) || dishValue != "") {
-//     console.log("passed", dishValue.length);
-//   } else {
-//     console.log("failed");
-//     dishValue.textContent = "Can't be empty";
-//   }
-// }
 function toggleEditFields(element) {
   var labels = element.querySelectorAll(".labelElement");
   console.log("laaaaaaaaab", labels);
@@ -283,7 +247,6 @@ function toggleEditFields(element) {
   editButton.style.cursor = "default";
   updateButton.style.cursor = "pointer";
   cancelButton.style.cursor = "pointer";
-  //xhr.send(JSON.stringify({}));
   if (!isEditing) {
     element.setAttribute("data-editing", "true");
   }
@@ -360,17 +323,13 @@ function updateRecipe(element) {
   updateButton.style.cursor = "default";
   cancelButton.style.cursor = "default";
 
-  // Access the updated values from the input fields
   var recipe_id = element.querySelector(".recipeID").textContent;
   var dishValue = element.querySelector(".dishElement").value;
   console.log("disssss", dishValue);
-  //   var authorValue = element.querySelector(".authorElement").value;
   var ingredientsValue = element.querySelector(".ingElement").value;
   var stepsValue = element.querySelector(".stepsElement").value;
 
-  // Update the text content of the text elements
   element.querySelector(".dishlbl").textContent = dishValue;
-  //element.querySelector(".authorlbl").textContent = authorValue;
   element.querySelector(".inglbl").textContent = ingredientsValue;
   element.querySelector(".stepslbl").textContent = stepsValue;
   console.log("wwwwwwwwwwwwwwwwassup", recipe_id);

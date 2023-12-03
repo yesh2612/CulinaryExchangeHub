@@ -11,14 +11,11 @@
   margin-bottom: 5px;
 }
 
-header {
-  text-align: center;
-  justify-content: center;
-  background-color: #0380;
-}
-
 .dishes-title {
   margin: 0;
+  text-align: center;
+  justify-content: center;
+  color: white;
 }
 
 .labelElement {

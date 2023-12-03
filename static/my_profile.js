@@ -1,4 +1,4 @@
-const userData = {
+var userData = {
   userEmail: sessionStorage.getItem("user_email"),
   userDisplayName: sessionStorage.getItem("user"),
   userPassword: sessionStorage.getItem("user_password"),
