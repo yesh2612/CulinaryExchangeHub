@@ -28,6 +28,10 @@ class DB_Operations:
     def set_new_password(self, cur, email_id, password):
         self.cur = cur
         self.cur.execute("UPDATE users SET user_password = %s WHERE email_id = %s", (password, email_id))
+
+    def set_display_name(self, cur, email_id, user_name):
+        self.cur = cur
+        self.cur.execute("UPDATE users SET user_name = %s WHERE email_id = %s", (user_name, email_id))
         
     def get_user_name(self, cur, email_id, password):
         self.cur = cur
