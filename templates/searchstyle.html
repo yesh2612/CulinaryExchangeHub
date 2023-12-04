@@ -1,26 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipe Search</title>
-    <style>
-    </style>
-  </head>
-  <body>
-    <header>
-      <h1>Recipe Search</h1>
+    <link rel="stylesheet" href="static/searchstyle.css"/>
+
+</head>
+<body class="search-body">
+
+    <header class="search-header">
+        <h1 class="glow">Recipe Search</h1>
     </header>
     <main>
-      <label for="recipeTitle">Enter Recipe Title:</label>
-      <input type="text" id="recipeTitle" placeholder="Type recipe title..." />
-      <button onclick="searchRecipe()">Search</button>
+        <h2>
+            <img src="https://th.bing.com/th/id/OIG.Xi3RfIKMjLtd8WJWdetD?w=1024&h=1024&rs=1&pid=ImgDetMain" alt="Left Icon" class="left">
+            <img src="https://th.bing.com/th/id/OIG.ibqSB9fG1L.OXLVmOruZ?w=1024&h=1024&rs=1&pid=ImgDetMain" alt="Recipe Icon">
+        </h2>
+        <h5>Please Search for your desired recipe here!🥑🥐...</h5>
+        <div class="search-container">
+        <label for="recipeTitle">Enter Recipe Title:</label>
+        <input type="text" id="recipeTitle" placeholder="Type recipe title... &#x2328;">
+        <button onclick="searchRecipe()">&#128269 Search &#128269</button>
 
-      <div id="searchResults"></div>
+        <div id="searchResults"></div>
     </main>
-
+    </div>
     <script type="text/javascript" src="/static/searchstyle.js"></script>
-    <link rel="stylesheet" href="static/searchstyle.css" />
-
-  </body>
+</body>
 </html>
