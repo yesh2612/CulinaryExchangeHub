@@ -1,11 +1,13 @@
 body {
-  font-family: 'Lucida Handwriting',cursive;
+  font-family: "Lucida Handwriting", cursive;
   margin: 0;
   padding: 0;
   background-color: orange;
-  background: url('https://th.bing.com/th/id/OIG.kccuwDfBVQaqWVkUwUrL?pid=ImgGn')
-  
+  background: url("https://th.bing.com/th/id/OIG.kccuwDfBVQaqWVkUwUrL?pid=ImgGn")
+    center center fixed !important;
+  background-size: cover;
 }
+
 body::before {
   content: "";
   position: fixed;
@@ -13,17 +15,17 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.669); 
-  z-index: -1; 
+  background: rgba(255, 255, 255, 0.669);
+  z-index: -1;
 }
 
-header {
+.search-header {
   background-color: rgba(255, 98, 0, 0.422);
   color: darkgreen;
   padding: 20px;
   text-align: center;
-  border-bottom: 2px solid lightgreen; 
-}      
+  border-bottom: 2px solid lightgreen;
+}
 
 h5 {
   margin: 0;
@@ -33,52 +35,54 @@ h5 {
 }
 @keyframes scrollText {
   0% {
-      transform: translateX(100%);
+    transform: translateX(100%);
   }
   100% {
-      transform: translateX(-100%);
+    transform: translateX(-100%);
   }
 }
 
 @keyframes glowOutline {
   0% {
-      text-shadow: 0 0 10px #fff, 0 0 20px #00fffb, 0 0 30px #00d9ff;
+    text-shadow: 0 0 10px #fff, 0 0 20px #00fffb, 0 0 30px #00d9ff;
   }
   50% {
-      text-shadow: 0 0 20px #fff, 0 0 30px #fbff00, 0 0 40px #fffb00;
+    text-shadow: 0 0 20px #fff, 0 0 30px #fbff00, 0 0 40px #fffb00;
   }
   100% {
-      text-shadow: 0 0 10px #fff, 0 0 20px #00ff00, 0 0 30px #00ff00;
+    text-shadow: 0 0 10px #fff, 0 0 20px #00ff00, 0 0 30px #00ff00;
   }
 }
 
 h1.glow {
   animation: glowOutline 4s infinite;
+  margin: 0;
+  text-align: center;
+  justify-content: center;
 }
 
 h2 img {
   width: 80px;
   height: 80px;
   position: absolute;
-  top: 10px; 
-  right: 10px; 
+  top: 10px;
+  right: 10px;
   border-radius: 50%;
   animation: flipImage 4s infinite;
 }
 h2 img.left {
-  left: 10px; 
-  
+  left: 10px;
 }
 
 @keyframes flipImage {
   0% {
-      transform: perspective(600px) rotateY(0);
+    transform: perspective(600px) rotateY(0);
   }
   50% {
-      transform: perspective(600px) rotateY(180deg);
+    transform: perspective(600px) rotateY(180deg);
   }
   100% {
-      transform: perspective(600px) rotateY(360deg);
+    transform: perspective(600px) rotateY(360deg);
   }
 }
 main {
@@ -91,14 +95,18 @@ main {
   animation: bounce 1s ease-in-out;
 }
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
-      transform: translateY(0);
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
   }
   40% {
-      transform: translateY(-20px);
+    transform: translateY(-20px);
   }
   60% {
-      transform: translateY(-10px);
+    transform: translateY(-10px);
   }
 }
 label {
@@ -125,7 +133,7 @@ button {
 }
 
 button:hover {
-  background-color:rgba(255, 160, 122, 0.461);
+  background-color: rgba(255, 160, 122, 0.461);
 }
 
 #searchResults {
@@ -136,7 +144,7 @@ button:hover {
   border-bottom: 1px solid #ddd;
   padding: 15px;
   margin-bottom: 15px;
-} 
+}
 
 .recipe {
   border-bottom: 1px solid blue;
@@ -149,9 +157,9 @@ button:hover {
 }
 @keyframes fadeIn {
   from {
-      opacity: 0;
+    opacity: 0;
   }
   to {
-      opacity: 1;
+    opacity: 1;
   }
 }
