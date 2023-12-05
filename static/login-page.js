@@ -53,8 +53,6 @@ function display_login_success(xmlhttp) {
 function display_response_failure_msg(xmlhttp) {
   console.error("Request failed with status", xmlhttp.status);
   document.getElementById("login-error-msg").style.color = "red";
-
-  document.getElementById("login-error-msg").style.color = "black";
   console.log("error", JSON.parse(xmlhttp.responseText));
 }
 
@@ -172,6 +170,11 @@ function resetPassword() {
         // toggleForm("login");
       } else {
         alert("Failed to reset password. Please try again.");
+        document.getElementById("login-error-msg").style.color = "red";
+
+        document.getElementById("login-error-msg").textContent =
+          "Failed to reset password. User Email not found";
+        display_response_failure_msg(xhr);
       }
     } else {
       console.error("Request failed with status " + xhr.status);

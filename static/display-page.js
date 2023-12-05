@@ -30,6 +30,12 @@ function displayData(data) {
   var mainContainer = document.createElement("div");
   mainContainer.className = "mainContainer center-container";
   data_array = data.data;
+  console.log("length", data_array.length);
+  if (data_array.length === 0) {
+    container.innerHTML = "<p>No dishes found</p>";
+    container.style.color = "white";
+    container.style.fontSize = "50px";
+  }
   data_array.forEach(function (item) {
     if (Array.isArray(item) && item.length >= 4) {
       var itemContainer = document.createElement("div");

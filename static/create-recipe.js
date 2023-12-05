@@ -67,8 +67,6 @@ function recipe_create() {
           console.log("msg", response.message);
           document.getElementById("container").style.backgroundColor =
             "#00ff99";
-          alert("Recipe created successfully!");
-          window.location.href = "/success";
         } else {
           alert("Failed to create Recipe. Please Try Again");
         }

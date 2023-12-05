@@ -43,7 +43,9 @@ function display_dishes(data) {
   resultsContainer.innerHTML = "";
   if (searchTerm.length === 0) {
     console.log("null");
-    resultsContainer.innerHTML = "<p>No results found</p>";
+    resultsContainer.innerHTML = "<p>YNo recipes found</p>";
+    resultsContainer.style.color = "white";
+    resultsContainer.style.fontSize = "50px";
   } else if (searchTerm.length != 0) {
     console.log("not null");
 
@@ -155,7 +157,9 @@ function display_dishes(data) {
       }
     }
     if (check_dish_exist_flag === false) {
-      resultsContainer.innerHTML = "<p>No results found</p>";
+      resultsContainer.innerHTML = "<p>No recipes found</p>";
+      resultsContainer.style.color = "white";
+      resultsContainer.style.fontSize = "50px";
     }
   }
 }
