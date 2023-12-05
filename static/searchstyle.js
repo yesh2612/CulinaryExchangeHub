@@ -119,7 +119,7 @@ function add_style(element) {
   element.style.margin = "20px";
   element.style.height = "auto";
   element.style.borderRadius = "8px";
-  element.style.backgroundColor = "rgb(67, 161, 233)";
+  element.style.backgroundColor = "#e6f7ff";
   element.style.boxShadow = "0 0 10px rgb(59, 106, 166)";
 }
 function searchRecipe() {
