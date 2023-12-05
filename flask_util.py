@@ -323,6 +323,13 @@ def create_recipe():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})
 
+@app.route("/success")
+def redirect_to_homepage():
+    try:
+        return render_template(f'{"index"}.html')
+    except Exception as e:
+        print("exception:", e)
+
 @app.route("/password_reset", methods = ['POST'])
 def reset_password():
     global users_op, users_cur, users_conn, users_values
