@@ -64,10 +64,6 @@ def userlogging_process():
 @app.route("/main-page")
 def home_page():
     return render_template("home-page.html")
-
-# @app.route("/my_dishes")
-# def my_dishes():
-#     return render_template("my_dishes.html")
  
 def extract_columns_for_displaying_my_dishes(rows):
     print("aaaaavvvv", rows)
@@ -154,7 +150,7 @@ def merge_records_based_on_recipe_id(rows):
 
     result_list = [list(value) for value in merged_dict.values()]
 
-    print("aaaaaaa", result_list)
+    print(result_list)
     return result_list
 
 @app.route('/display-page')
@@ -166,24 +162,18 @@ def replace_email_with_name(rows):
     for i, data_tuple in enumerate(rows):
         email = data_tuple[4]
         name = users_op.get_user_name_by_email(users_cur, email)
-        
-        print("emaaail:{}name:{}".format(email, name))
-        print("ival", i)
-        print("length", len(name))
+
         if (name != None and name != ""):
             author_name = "{} ({})".format(name, email)
             rows[i] = data_tuple[:4] + (author_name,) + data_tuple[5:]
             print("going in", rows[i])           
 
-    print("rowwwwwws", rows)
 
 @app.route('/display', methods=['POST'])
 def display_table():
     global ingreditents_conn, ingreditents_cur, ingreditents_op
     rows = ingreditents_op.get_values(ingreditents_cur)
-    print("rowssss before", rows)
     replace_email_with_name(rows)
-    print("rowssss after", rows)
     merge_result = merge_records_based_on_recipe_id(rows)
     
     extract_values = extract_columns(merge_result)
@@ -234,10 +224,7 @@ def registration():
         session['username'] = user_name
         response = {'message': session['username'], 'user_email_id' : email_id, 'user_password': user_password}
         return jsonify(response)
-        # session['username'] = user_name
 
-        # response = {'message': session['username']}
-        # return jsonify(response)
     except Exception as e:
         print(e)
         return jsonify({'error': str(e)}), 500
@@ -307,10 +294,10 @@ def create_recipe():
         if (user_id):
             values.append(recipe_name)
             values.append(user_id)
-            print("usssssserid", user_id)
+            print("user_id", user_id)
             values = [recipe_name, user_id]
             recipe_id = recipes_op.insert_into_recipe_table(recipes_cur, values)
-            print("rrrr", recipe_id)
+            print("recipe_id", recipe_id)
             recipes_conn.commit()
             values = [recipe_ingredients, recipe_id, recipe_steps]
             ingreditents_op.insert_into_ingrediets_table(ingreditents_cur, values)
@@ -322,13 +309,6 @@ def create_recipe():
 
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})
-
-@app.route("/success")
-def redirect_to_homepage():
-    try:
-        return render_template(f'{"index"}.html')
-    except Exception as e:
-        print("exception:", e)
 
 @app.route("/password_reset", methods = ['POST'])
 def reset_password():
@@ -354,9 +334,7 @@ def reset_password():
         users_values.append(value)
         result = users_op.check_user_email_exist(users_cur, email_id)
         if result:
-            print("enterrinnnnnnnngggg")
             users_op.set_new_password(users_cur, email_id, new_password)
-            print("exitttttttttting")
             users_conn.commit()
             # users_cur.close()
             # users_conn.close()
@@ -364,6 +342,7 @@ def reset_password():
             return jsonify(response)
         else:
             response = {'error': 'Login failed. Invalid email_ID or password.'}
+            return jsonify(response)
             
     except Exception as e:
         print("exception", e)
@@ -391,9 +370,7 @@ def my_profile():
         users_values.append(value)
         result = users_op.check_user_email_exist(users_cur, email_id)
         if result:
-            print("enterrinnnnnnnngggg")
             users_op.set_new_password(users_cur, email_id, user_password)
-            print("exitttttttttting")
             users_conn.commit()
             users_op.set_display_name(users_cur, email_id, display_name)
             users_conn.commit()

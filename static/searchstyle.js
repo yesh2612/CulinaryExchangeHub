@@ -1,5 +1,5 @@
 var xhr = new XMLHttpRequest();
-let value;
+var value;
 xhr.open("POST", "/searchstyle", true);
 
 xhr.setRequestHeader("Content-Type", "application/json");
@@ -38,8 +38,8 @@ function searchValue(data) {
 
     for (let i = 0; i < data_array.length; i++) {
       const item = data_array[i];
-
-      if (item[0].toLowerCase() === searchTerm.toLowerCase()) {
+      if (item[0].toLowerCase().startsWith(searchTerm.toLowerCase())) {
+        //if (item[0].toLowerCase() === searchTerm.toLowerCase()) {
         const recipeDiv = document.createElement("div");
         recipeDiv.classList.add("recipe");
         check_dish_exist_flag = true;
