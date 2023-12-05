@@ -180,7 +180,20 @@ function url() {
         log_txt.style =
           "display : inline-block; pointer-events: auto; opactiy:1";
         log_txt.textContent = "Logout";
+        var my_dishes_txt = document.querySelector(
+          '.profile .dropdown a[href="#"]'
+        );
+        my_dishes_txt.style =
+          "display : inline-block; pointer-events: auto; opactiy:1";
+        my_dishes_txt.textContent = "My Dishes";
 
+        var my_profile_txt = document.querySelector(
+          ".profile .dropdown #profile"
+        );
+
+        my_profile_txt.style =
+          "display : inline-block; pointer-events: auto; opactiy:1";
+        my_profile_txt.textContent = "My Profile";
         display_login_success(xmlhttp);
       }
     } else {
